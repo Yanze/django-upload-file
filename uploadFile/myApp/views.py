@@ -1,8 +1,5 @@
 from django.shortcuts import render, redirect
-# from django.template import RequestContext
-# from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-
+from django.conf import settings
 from .models import UploadFile
 from .forms import DocumentForm
 
@@ -13,8 +10,10 @@ def list(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             newdoc = UploadFile(docfile=request.FILES['docfile'])
+            if request.FILES['docfile'].size > settings.MAX_UPLOAD_SIZE:
+                return render(request, 'list.html', {'message': 'Maxi file size is 2.5MB.'})
             newdoc.save()
-            return redirect(reverse('list'))
+            return redirect('list')
     else:
         # empty unbound form
         form = UploadFile()

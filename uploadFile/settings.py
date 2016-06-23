@@ -26,6 +26,8 @@ SECRET_KEY = '#f*v&%yq=sbd-_!6m+takcl$w@dn(xa*-5+kwu4&nkveee2lpu'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# upload file max size, 2.5MB
+MAX_UPLOAD_SIZE = 2621440
 
 
 # Application definition
